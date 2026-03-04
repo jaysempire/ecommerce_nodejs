@@ -14,7 +14,7 @@ const helmet = require('helmet');
 const compression = require('compression')
 const morgan = require('morgan')
 
-const accessLogStream = require('./util/file').accesslog
+//const accessLogStream = require('./util/file').accesslog
 
 const MONGODB_URI = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0.cz4rs4n.mongodb.net/${process.env.MONGO_DEFAULT_DATABASE}?appName=Cluster0`;
 
