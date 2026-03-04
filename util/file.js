@@ -9,10 +9,9 @@ const deleteFile = (filePath) => {
     })
 };
 
-const accessLog = fs.createWriteStream(
+/* const accessLog = fs.createWriteStream(
     path.join(__dirname, '..', 'access.log'),
     {flags: 'a'}
 )
-
+ */
 exports.deleteFile = deleteFile;
-exports.accesslog = accessLog;
