@@ -1,0 +1,43 @@
+<%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/login.css">
+</head>
+<body class="page home-page">
+
+    <%- include('../includes/nav.ejs') %>
+    <main class="login-container">
+        <section class="login-card">
+            <div class="login-header">
+            <h2>Welcome Back</h2>
+            <p>Please enter your details to sign in.</p>
+            </div>
+
+            <% if (errorMessage) { %>
+                <div class="user-message user-message--error">
+                    <span class="error-icon">⚠️</span> <%= errorMessage %>
+                </div>
+            <% } %>
+            <form action="/login" method="POST" class="login-form" novalidate>
+                <div class="input-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name = "email" placeholder="name@company.com" value="<%= oldInput.email %>" >
+                </div>
+
+                <div class="input-group">
+                    <div class="label-row">
+                    <label for="password">Password</label>
+                    <a href="/reset" class="forgot-link">Forgot?</a>
+                    </div>
+                    <input type="password" name = "password" id="password" placeholder="••••••••" value="<%=oldInput.password%>">
+                </div>
+                
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <button type="submit" class="login-btn">Sign In</button>
+                
+                <p class="signup-text">
+                    Don't have an account? <a href="/signup">Create one</a>
+                </p>
+            </form>
+        </section>
+    </main>
+
+<%- include('../includes/end.ejs') %>

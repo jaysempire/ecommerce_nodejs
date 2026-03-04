@@ -1,0 +1,49 @@
+<header class="main-header">
+  <nav class="main-nav">
+    <ul class="nav-list">
+      
+      <div class="nav-group">
+        <li class="nav-item">
+          <a href="/" class="nav-link <%= path === '/' ? 'active' : '' %>">Shop</a>
+        </li>
+        <li class="nav-item">
+          <a href="/products" class="nav-link <%= path === '/products' ? 'active' : '' %>">Products</a>
+        </li>
+
+        <% if(isAuthenticated) { %>
+          <li class="nav-item">
+            <a href="/cart" class="nav-link <%= path === '/cart' ? 'active' : '' %>">Cart</a>
+          </li>
+          <li class="nav-item">
+            <a href="/orders" class="nav-link <%= path === '/orders' ? 'active' : '' %>">Orders</a>
+          </li>
+          <li class="nav-item">
+            <a href="/admin/add-product" class="nav-link <%= path === '/admin/add-product' ? 'active' : '' %>">Add Product</a>
+          </li>
+          <li class="nav-item">
+            <a href="/admin/products" class="nav-link <%= path === '/admin/products' ? 'active' : '' %>">Admin Products</a>
+          </li>
+        <% } %>
+      </div>
+
+      <div class="nav-group nav-group--auth">
+        <% if(!isAuthenticated) { %>
+          <li class="nav-item">
+            <a href="/login" class="nav-link <%= path === '/login' ? 'active' : '' %>">Login</a>
+          </li>
+          <li class="nav-item">
+            <a href="/signup" class="nav-link <%= path === '/signup' ? 'active' : '' %> signup-special">Signup</a>
+          </li>
+        <% } else { %>
+          <li class="nav-item">
+            <form action="/logout" method="POST" class="logout-form">
+              <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+              <button class="nav-link logout-btn" type="submit">Logout</button>
+            </form>
+          </li>
+        <% } %>
+      </div>
+
+    </ul>
+  </nav>
+</header>

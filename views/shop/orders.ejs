@@ -1,0 +1,50 @@
+<%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/order.css">
+</head>
+<body class="page home-page">
+
+    <%- include('../includes/nav.ejs') %>
+    <% if(orders.length <= 0){ %>
+        <div class="empty-state">
+            <div class="icon">📦</div>
+            <h3>No Orders Yet</h3>
+            <p>Start adding Orders to see them listed here.</p>
+            <a href="/products" class="btn">Add Your First Order</a>
+        </div>
+    <% } else { %>
+        <main class="orders-page">
+            <h1 class="page-title">Your Orders</h1>
+            <p class="page-description">A summary of all your past purchases</p>
+
+            <section class="orders-list">
+                <% orders.forEach( order => {%>
+                    <article class="order-card">
+                        <header class="order-header">
+                            <span class="order-id">Order #<%= order._id %></span>
+                            <span class="order-date"><%= order.createdAt %></span>
+                        </header>
+
+                        <ul class="order-items">
+                            <% order.products.forEach( p => {%>
+                                <li class="order-item">
+                                    <span class="item-name"><%= p.product.title %></span>
+                                    <span class="item-qty">x<%= p.quantity %></span>
+                                    <span class="item-price">$<%= p.product.price %></span>
+                                </li>
+                            <% }) %>
+                        </ul>
+
+                        <footer class="order-footer">
+                            <span class="order-total">Total: $ <%= order.totalPrice %></span>
+                            <span class="order-status success">Paid</span>
+                        </footer>
+                        <a href="/orders/<%= order._id %> ">Invoice</a>
+                    </article>
+            <% }) %>
+            </section>
+        </main>
+    <% } %>
+<%- include('../includes/end.ejs') %>
+
+

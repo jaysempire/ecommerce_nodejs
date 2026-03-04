@@ -1,0 +1,45 @@
+<%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body class="page home-page">
+
+    <%- include('../includes/nav.ejs') %>
+
+    <main class="main-content">
+        <% if(prods.length > 0 ){ %>
+            <h1 class="page-title">My Products</h1>
+            <p class="page-description">List Of All The Products</p>
+            <div class="grid">
+                <% for(let product of prods) {%>
+                    <article class="card product-item">
+                        <header class="card__header">
+                            <h1 class="product__title"><%= product.title %></h1>
+                        </header>
+                        <div class="card__image">
+                            <img src="/<%= product.imgUrl %>" alt="A Book">
+                        </div>
+                        <div class="card__content">
+                            <h2 class="product__price">$<%= product.price.toLocaleString('en-US') %></h2>
+                            <p class="product__description"><%= product.description %></p>
+                        </div>
+                        <div class="card__actions">
+                            <a href="/products/<%= product._id %>" class="btn">Details</a>
+                            <% if(isAuthenticated) { %>
+                                <%- include('../includes/add-to-cart.ejs', {product : product}) %>
+                            <% } %>
+                        </div>
+
+                    </article>
+                <% } %>
+            </div>
+            <%- include('../includes/pagination.ejs', { currentPage: currentPage, hasNextPage: hasNextPage, hasPreviousPage: hasPreviousPage, nextPage: nextPage, previousPage: previousPage, lastPage: lastPage}) %>
+        <% } else { %>
+            <div class="empty-state">
+                <div class="icon">📦</div>
+                <h3>No Products Yet</h3>
+                <p>Stay Tuned For Some Exciting Products!.</p>
+            </div>
+        <% } %>
+    </main>
+
+<%- include('../includes/end.ejs') %>

@@ -1,0 +1,70 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/main.css">
+</head>
+
+<body class="page home-page">
+
+<%- include('../includes/nav.ejs') %>
+
+<main class="main-content">
+
+    <header class="page-header text-center mb-4">
+        <h1 class="page-title">My Products</h1>
+        <p class="page-description">List of all available products</p>
+    </header>
+
+    <% if (prods.length > 0) { %>
+
+        <section class="grid">
+
+            <% for (let product of prods) { %>
+                <article class="card product-item">
+
+                    <div class="card__image">
+                        <img 
+                            src="/<%= product.imgUrl %>" 
+                            alt="<%= product.title %>"
+                        >
+                    </div>
+
+                    <div class="card__content">
+                        <h2 class="product__title"><%= product.title %></h2>
+                        <p class="product__price">$<%= product.price.toLocaleString('en-US') %></p>
+                        <p class="product__description">
+                            <%= product.description %>
+                        </p>
+                    </div>
+
+                    <div class="card__actions">
+                        <a 
+                            href="/products/<%= product._id %>" 
+                            class="btn btn--secondary"
+                        >
+                            Details
+                        </a>
+
+                        <% if (isAuthenticated) { %>
+                            <%- include('../includes/add-to-cart.ejs', { product }) %>
+                        <% } %>
+                    </div>
+
+                </article>
+            <% } %>
+
+        </section>
+
+        <%- include('../includes/pagination.ejs', { currentPage: currentPage, hasNextPage: hasNextPage, hasPreviousPage: hasPreviousPage, nextPage: nextPage, previousPage: previousPage, lastPage: lastPage}) %>
+
+    <% } else { %>
+
+        <section class="empty-state">
+            <span class="icon">📦</span>
+            <h3>No Products Yet</h3>
+            <p>Stay tuned for some exciting products.</p>
+        </section>
+
+    <% } %>
+
+</main>
+
+<%- include('../includes/end.ejs') %>

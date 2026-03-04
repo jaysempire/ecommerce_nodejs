@@ -1,0 +1,32 @@
+<%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body class="page home-page">
+
+    <%- include('../includes/nav.ejs') %>
+    <main class="product-detail">
+    <section class="product-detail__card">
+        <div class="product-detail__image">
+            <img src="/<%= product.imgUrl %>" alt="<%= product.title %>">
+        </div>
+
+        <div class="product-detail__content">
+            <h1 class="product-detail__title"><%= product.title %></h1>
+
+            <p class="product-detail__price">$<%= product.price %></p>
+
+            <p class="product-detail__description">
+                <%= product.description %>
+            </p>
+
+            <div class="product-detail__actions">
+                <% if(isAuthenticated) { %>
+                    <%- include('../includes/add-to-cart.ejs', {product : product}) %>
+                <% } %>
+                <a href="/products" class="btn btn--secondary">Back to Products</a>
+            </div>
+        </div>
+    </section>
+</main>
+
+<%- include('../includes/end.ejs') %>
